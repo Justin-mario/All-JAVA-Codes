@@ -1,6 +1,7 @@
 package com.CHAPTER_SEVEN.AirlineReservationTest;
 
 import com.CHAPTER_SEVEN.AirLineReservation.AirLineReservation;
+import com.CHAPTER_SEVEN.AirLineReservation.AirPlaneClassOutOfBoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -56,6 +57,11 @@ public class AirLineReservationTest {
 
         assertEquals (  5, seatReservation.bookSeat (2));
     }
+    @Test
+    @DisplayName ( "Test No other Class Exits Apart from FirstClass And Economy")
+    void checkOnlyFirstClassAndEconomyClassExits(){
+        assertThrows ( AirPlaneClassOutOfBoundException.class, ()-> seatReservation.bookSeat (5)); }
+
     @AfterEach
     void afterEachTest(){
         seatReservation = null;
