@@ -6,7 +6,6 @@ public class AddingStudentAndCourseApp {
         AddingStudentToCourse course = new AddingStudentToCourse ();
         Scanner input = new Scanner ( System.in );
 
-
         System.out.print ( "Input student Name..." );
         String studentName = input.nextLine ();
         course.addStudent ( studentName );
