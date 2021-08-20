@@ -73,6 +73,7 @@ public class Customer {
 
     public void setRelationshipStartDate(LocalDateTime relationshipStartDate) {
         this.relationshipStartDate = relationshipStartDate;
+
     }
 
     public void setAccounts(List<Account> accounts) {

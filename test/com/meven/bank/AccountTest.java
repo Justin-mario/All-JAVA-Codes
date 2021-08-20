@@ -2,7 +2,6 @@ package com.meven.bank;
 
 import com.maven.bank.entities.Account;
 import com.maven.bank.entities.Customer;
-import com.maven.bank.datastore.AccountType;
 import com.maven.bank.datastore.CustomerRepo;
 import com.maven.bank.exceptions.MavenBankTransactionException;
 import com.maven.bank.services.BankService;
@@ -18,7 +17,7 @@ public class AccountTest {
     @BeforeEach
     void setUp(){
         john = new Customer();
-//        johnAccount = new Account ();
+
     }
     @AfterEach
     void tearDown(){

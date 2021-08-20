@@ -82,7 +82,7 @@ class LoanServiceImplTest {
         try {
             Account johnSavingsAccount = accountService.findAccount ( 1 );
             Optional<Customer> optionalCustomer = CustomerRepo.getCustomers ().values ().stream ().findFirst ();
-            Customer john = optionalCustomer.isPresent ()? optionalCustomer.get () : null;
+            Customer john = optionalCustomer.orElse ( null );
             assertNotNull ( john );
             john.setRelationshipStartDate ( johnSavingsAccount.getStartDate () .minusYears ( 2 ) );
             johnLoanRequest.setLoanAmount ( BigDecimal.valueOf ( 3_000_000 ) );
@@ -126,10 +126,7 @@ class LoanServiceImplTest {
             johnSavingsAccount.setAccountLoanRequest ( johnLoanRequest );
             LoanRequest johnLoanRequest = loanService.approveLoanRequest (john, johnSavingsAccount );
             assertEquals ( LoanRequestStatus.APPROVED, johnLoanRequest.getStatus () );
-//            johnSavingsAccount.setAccountLoanRequest ( johnLoanRequest );
-//            LoanRequest processedLoanRequest = loanService.approveLoanRequest ( johnSavingsAccount );
-//            assertNotNull ( processedLoanRequest );
-//            assertEquals ( LoanRequestStatus.PENDING, processedLoanRequest.getStatus () );
+
 
         }catch (MavenBankException ex) {
             ex.printStackTrace ();
