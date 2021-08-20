@@ -6,6 +6,7 @@ import com.maven.bank.datastore.AccountType;
 import com.maven.bank.datastore.CustomerRepo;
 import com.maven.bank.exceptions.MavenBankTransactionException;
 import com.maven.bank.services.BankService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,11 @@ public class AccountTest {
     void setUp(){
         john = new Customer();
 //        johnAccount = new Account ();
+    }
+    @AfterEach
+    void tearDown(){
+        BankService.tearDown ();
+        CustomerRepo.reset ();
     }
 
     @Test

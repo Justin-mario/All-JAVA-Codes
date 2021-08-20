@@ -11,12 +11,7 @@ import java.math.BigDecimal;
 public class LoanServiceImpl implements LoanService{
     @Override
     public LoanRequest approveLoanRequest(Account accountSeekingLoan) throws MavenBankLoanException {
-        if (accountSeekingLoan == null){
-            throw  new MavenBankLoanException ("Account is required");
-        }
-        if (accountSeekingLoan.getAccountLoanRequest ()== null){
-            throw  new MavenBankLoanException ("no loan Request provided For Processing");
-        }
+        validateLoanRequest ( accountSeekingLoan );
         LoanRequest theLoanRequest = accountSeekingLoan.getAccountLoanRequest ();
         theLoanRequest.setStatus ( decideOnLoanRequestWithAccountBalance ( accountSeekingLoan ) );
 
@@ -26,6 +21,7 @@ public class LoanServiceImpl implements LoanService{
 
     @Override
     public LoanRequest approveLoanRequest(Customer customer, Account accountSeekingLoan) throws MavenBankLoanException {
+        validateLoanRequest ( customer, accountSeekingLoan );
         LoanRequestStatus decision = decideOnLoanRequestWithLengthOfRelationshipAndTransactionVolume ( customer,accountSeekingLoan );
         LoanRequest theLoanRequest = accountSeekingLoan.getAccountLoanRequest ();
         theLoanRequest.setStatus ( decision );
@@ -72,5 +68,20 @@ public class LoanServiceImpl implements LoanService{
 
         return decision;
     }
+    private void validateLoanRequest(Customer customer, Account accountSeekingLoan) throws MavenBankLoanException{
+        if (customer == null){
+            throw new MavenBankLoanException ("No Customer Provided");
+        }
+        this.validateLoanRequest ( accountSeekingLoan );
 
+    }
+    private void validateLoanRequest(Account accountSeekingLoan) throws MavenBankLoanException {
+        if (accountSeekingLoan == null) {
+            throw new MavenBankLoanException ( "Account is required" );
+        }
+        if (accountSeekingLoan.getAccountLoanRequest () == null) {
+            throw new MavenBankLoanException ( "no loan Request provided For Processing" );
+        }
+
+    }
 }
