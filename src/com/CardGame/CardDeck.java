@@ -7,39 +7,37 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static com.CardGame.Suit.*;
-
 public class CardDeck {
-    private CardGame[] cards;
+    private CardGame[] cardArray;
     private int lastPushedLocation = -1;
     SecureRandom random = new SecureRandom ();
 
 
     public CardDeck(int numberOfCard) {
-        cards = new CardGame[numberOfCard];
+        cardArray = new CardGame[numberOfCard];
 
     }
 
     public int getSize() {
-        return cards.length;
+        return cardArray.length;
     }
 
     public void push(CardGame card) {
         if (isFull ()) throw new StackOverFlowException ( "Card deck is full" );
         lastPushedLocation++;
-        cards[lastPushedLocation] = card;
+        cardArray[lastPushedLocation] = card;
     }
 
     public CardGame peek() {
         if (isEmpty ()) throw new StackUnderFlow ( "Card deck is empty" );
-        return cards[lastPushedLocation];
+        return cardArray[lastPushedLocation];
     }
 
 
     public CardGame pop() {
         if (isEmpty ()) throw new StackUnderFlow ( "Card deck is empty" );
 
-        return cards[lastPushedLocation--];
+        return cardArray[lastPushedLocation--];
     }
 
     public boolean isEmpty() {
@@ -98,6 +96,6 @@ public class CardDeck {
 //            cards[randomIndex] = temp;
 //
 //        }
-        Collections.shuffle ( Arrays.asList ( cards ) );
+        Collections.shuffle ( Arrays.asList ( cardArray ) );
     }
 }

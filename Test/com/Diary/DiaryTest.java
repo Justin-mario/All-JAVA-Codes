@@ -1,5 +1,6 @@
 package com.Diary;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,5 +33,20 @@ class DiaryTest {
         diary.addEntry("well i am getting better now.");
         diary.deleteAllEntry();
         assertEquals ( 0, diary.getNumberOfEntries() );
+    }
+
+    @Test
+    void readEntryFromDiary(){
+        diary.addEntry("I Dont really understand what i am doing");
+        diary.addEntry("well i am getting better now.");
+        diary.addEntry("Well I Dont really understand what i am doing");
+        diary.addEntry("well i am getting better now, really better now.");
+        assertEquals ( "I Dont really understand what i am doing", diary.getEntryBody ( 1 ));
+    }
+
+    @AfterEach
+        void tearDown(){
+       Entry entry = new Entry ( " " );
+        entry.setLastIdToZero ();
     }
 }

@@ -4,6 +4,8 @@ public class DiaryUser {
 
 private final String userName;
 private final Diary diary;
+private String diaryBody;
+
 
     public DiaryUser(Diary diary, String userName) {
         this.diary = diary;
@@ -15,6 +17,7 @@ private final Diary diary;
     }
 
     public void createEntry(String entryBody) {
+        diaryBody = entryBody;
         diary.addEntry  ( entryBody );
     }
 
@@ -23,10 +26,20 @@ private final Diary diary;
     }
 
     public void deleteEntry(int diaryIndex) {
-    diary.deleteEntry ( diaryIndex );
-    }
+        diary.deleteEntry ( diaryIndex );}
+
 
     public void deleteAllEntry() {
         diary.deleteAllEntry ();
     }
+
+    public Entry readEntry(int diaryIndex) {
+        return diary.getEntry ( diaryIndex );}
+
+    public int resetDiaryPage(){
+        return diary.resetDiaryPage ();
+    }
+
 }
+
+

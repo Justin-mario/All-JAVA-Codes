@@ -1,5 +1,6 @@
 package com.Diary;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,5 +52,19 @@ class DiaryUserTest {
         ben.createEntry("On, emm yea another day, I am trying to learn java programming");
         ben.deleteAllEntry();
         assertEquals (0,ben.getNumberOfEntry());
+    }
+
+    @Test
+        void userCanReadEntry(){
+        ben.createEntry("On this day, I am trying to learn java programming");
+        ben.createEntry("On another day, I am trying to learn java programming");
+        ben.createEntry("On yet another day, I am trying to learn java programming");
+        ben.createEntry("On, emm yea another day, I am trying to learn java programming");
+        assertEquals ("On this day, I am trying to learn java programming", ben.readEntry(1) );
+    }
+
+    @AfterEach
+        void tearDown(){
+        ben.resetDiaryPage ();
     }
 }

@@ -73,7 +73,7 @@ public class ModifiedGameOfCrap {
         switch (message){
             case 1-> System.out.println ("Oh you are going for broke, huh?");
             case 2-> System.out.println ("Aw c'mon, take a chance!");
-            case 3-> System.out.println ("you are up big. now's the time to cash in your chips");
+            case 3-> System.out.println ("you are up big. now's the validateTime to cash in your chips");
         }
     }
 

@@ -5,31 +5,32 @@ import java.util.Arrays;
 public class SortingAndReturningIndexOfArray {
 
     public static void sortingArray(int[] numbers){
-//        for (int i = 0; i < numbers.length; i++){
-//            for (int j = 0; j < numbers.length; j++) {
-//                if (numbers[i] < numbers[j]) {
-//                    int temp = numbers[i];
-//                    numbers[i] = numbers[j];
-//                    numbers[j] = temp;
-//                }
-//            }
-//        }
-
-        int firstCounter = 0;
-        int second_counter = 0;
-
-        while (firstCounter < numbers.length) {
-            while (second_counter < numbers.length) {
-                if (numbers[firstCounter] < numbers[second_counter]) {
-                    int temp = numbers[firstCounter];
-                    numbers[firstCounter] = numbers[second_counter];
-                    numbers[second_counter] = temp;
+        for (int i = 0; i < numbers.length; i++){
+            for (int j = i + 1; j < numbers.length; j++) {
+                int tempI = numbers[i];
+                int tempJ = numbers[j];
+                if (tempJ < tempI) {
+                   numbers[i] = tempJ;
+                   numbers[j] = tempI;
                 }
-                second_counter += 1;
             }
-            second_counter = 0;
-            firstCounter += 1;
         }
+
+//        int firstCounter = 0;
+//        int second_counter = 0;
+//
+//        while (firstCounter < numbers.length) {
+//            while (second_counter < numbers.length) {
+//                if (numbers[firstCounter] < numbers[second_counter]) {
+//                    int temp = numbers[firstCounter];
+//                    numbers[firstCounter] = numbers[second_counter];
+//                    numbers[second_counter] = temp;
+//                }
+//                second_counter += 1;
+//            }
+//            second_counter = 0;
+//            firstCounter += 1;
+//        }
 
     }
 

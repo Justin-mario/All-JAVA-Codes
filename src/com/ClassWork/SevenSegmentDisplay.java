@@ -53,6 +53,7 @@ public class SevenSegmentDisplay {
     }
 
     public void setUp(String userInput) {
+        userInput = convertBaseTenToBaseTwo ( userInput );
         for (int i = 0; i < userInput.length (); i++) {
             while(userInput.length () < 8){
                 userInput = "0" + userInput ;
@@ -63,35 +64,18 @@ public class SevenSegmentDisplay {
 
             if (userInput.charAt ( i ) == '1') {
                 switch (i) {
-                    case 0 -> {
-                        writeOnA ();
-                    }
-                    case 1 -> {
-                        writeOnB ();
-                    }
-                    case 2 -> {
-                        writeOnC ();
-                    }
-                    case 3 -> {
-                        writeOnD ();
-                    }
-                    case 4 -> {
-                        writeOnE ();
-                    }
-                    case 5 -> {
-                        writeOnF ();
-                    }
-                    case 6 -> {
-                        writeOnG ();
-                    }
-                        }
+                    case 0 -> writeOnA ();
+                    case 1 -> writeOnB ();
+                    case 2 -> writeOnC ();
+                    case 3 -> writeOnD ();
+                    case 4 -> writeOnE ();
+                    case 5 -> writeOnF ();
+                    case 6 -> writeOnG ();
+                }
                     }
                 }
             }
-
-
-
-
+            
 
     public void validateInput(String userInput) {
         for (int i = 0; i < userInput.length (); i++) {
@@ -102,6 +86,23 @@ public class SevenSegmentDisplay {
                 throw new IllegalArgumentException ();
             }
         }
+    }
+
+    public String convertBaseTenToBaseTwo(String userInput){
+       int remainder;
+       int quotient = Integer.parseInt ( userInput );
+       String reverse = "";
+       do{
+           remainder = quotient % 2;
+           quotient = quotient /2;
+            reverse = remainder + reverse ;
+       }while(quotient != 0);
+        return reverse;
+
+
+       // String answer = Integer.toBinaryString ( quotientDivision );
+        //String answer = Integer.toString ( quotientDivision, 2 );
+
     }
 }
 
