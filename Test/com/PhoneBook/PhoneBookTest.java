@@ -1,5 +1,6 @@
 package com.PhoneBook;
 
+import com.PhoneBook.exception.PhonebookException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +14,16 @@ class PhoneBookTest {
     }
     @Test
         void checkPhoneBookCanSaveNumber(){
+        assertNotNull ( phoneBook );
+        assertEquals ( 0, phoneBook.getSize () );
         phoneBook.saveNumber("John", "080378499", "john@yahoomail.com");
         phoneBook.saveNumber("Ben", "08137849909", "ben@yahoomail.com");
-        assertEquals ("08137849909", phoneBook.getNumber("Ben") );
+        assertEquals ( 2, phoneBook.getSize () );
+        try {
+            assertEquals ("08137849909", phoneBook.getNumber("Ben") );
+        } catch (PhonebookException e) {
+            e.printStackTrace ();
+        }
     }
 
     @Test
@@ -24,7 +32,7 @@ class PhoneBookTest {
         phoneBook.saveNumber("Ben", "08137849909", "ben@yahoomail.com");
         phoneBook.deleteNumber("Ben");
         assertEquals ( 1,phoneBook.getSize() );
-        assertEquals ("08137849909", phoneBook.getNumber("Ben") );
+        assertThrows ( PhonebookException.class, ()->phoneBook.getNumber ( "Ben" )  );
 
     }
 

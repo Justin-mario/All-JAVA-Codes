@@ -1,29 +1,35 @@
 package com.PhoneBook;
+import com.PhoneBook.exception.PhonebookException;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PhoneBook {
-    ArrayList<PhoneBookEntry> phonebook = new ArrayList<> ();
+    Map<String, PhoneBookEntry> phonebook = new HashMap<> ();
 
+    public void saveNumber(String userName,String mobileNumber, String email) {
+        phonebook.put ( userName, new PhoneBookEntry ( mobileNumber, email ) );
 
-    public void saveNumber(String name, String mobile, String email) {
-        phonebook.add ( new PhoneBookEntry ( name,mobile,email ) );
     }
 
 
-    public String getNumber(String name){
+    public String getNumber(String name) throws PhonebookException {
         for (int i = 0; i < phonebook.size (); i++) {
-            if(phonebook.get ( i ).getName ().equals ( name ))
-                return phonebook.get ( i ).getMobile ();
+            if (!phonebook.containsKey (name) ){
+                throw new PhonebookException ("Name does not exist");
+            }
+            else if (phonebook.containsKey (name))
+                return String.valueOf ( phonebook.get ( name ) );
+
+
         }
         return null;
     }
 
     public void deleteNumber(String name) {
-        for (int i = 0; i < phonebook.size (); i++) {
-            if(phonebook.get ( i ).getName ().equals ( name ))
-                phonebook.remove ( i );
-        }
+//        for (int i = 0; i < phonebook.size (); i++) {
+            phonebook.remove ( name );
+//        }
 
     }
 

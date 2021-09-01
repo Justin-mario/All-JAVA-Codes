@@ -1,5 +1,7 @@
 package com.PhoneBook;
 
+import com.PhoneBook.exception.PhonebookException;
+
 public class PhoneBookUser {
     private String name;
     private String number;
@@ -8,6 +10,7 @@ public class PhoneBookUser {
 
     public PhoneBookUser(PhoneBook phoneBook, String user){
         this.phoneBook = phoneBook;
+        name = user;
 
     }
 
@@ -15,11 +18,12 @@ public class PhoneBookUser {
         this.name = name;
         this.number = number;
         this.email = email;
+        phoneBook.saveNumber ( name,number,email );
 
 
     }
 
-    public String getNumber() {
+    public String getNumber() throws PhonebookException {
         return phoneBook.getNumber ( "Ben" );
     }
 }

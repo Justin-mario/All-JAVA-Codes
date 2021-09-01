@@ -3,28 +3,22 @@ package com.PhoneBook;
 import java.time.LocalDateTime;
 
 public class PhoneBookEntry {
-    private String name;
-    private String mobile;
+    private String mobileNumber;
     private String email;
     private int entryId;
     private LocalDateTime entryDateAndTime;
     private static int lastEntry;
 
-    public PhoneBookEntry(String name, String mobile, String email) {
-        this.name = name;
+    public PhoneBookEntry(String mobileNumber, String email) {
         this.email = email;
-        this.mobile = mobile;
+        this.mobileNumber = mobileNumber;
         entryId = 1 + lastEntry++;
         entryDateAndTime = LocalDateTime.now ();
-
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public String getMobile() {
-        return mobile;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
     public String getEmail() {
@@ -42,4 +36,12 @@ public class PhoneBookEntry {
     public static int getLastEntry() {
         return lastEntry;
     }
+
+    @Override
+    public String toString() {
+        return mobileNumber;
+    }
+//    return "Entry ID: " + entryId +
+//            "\t\tEntry creation validateTime: " + entryDateAndTime +
+//            "\nEntry body: " +  entryBody + ".....";
 }
