@@ -4,6 +4,7 @@ import com.PhoneBook.exception.PhonebookException;
 import com.newphonebook.model.PhonebookEntry;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class PhonebookRepo {
@@ -52,12 +53,10 @@ public class PhonebookRepo {
     }
 
     public PhonebookEntry getAllContact() {
-        if (phonebook.size () != 0){
-            for(int i = 0; i < phonebook.size (); i++){
-                return    phonebook.get ( name );
-            }
-
+        for (Object key : phonebook.keySet()) {
+            System.out.println(key.toString() + " ==> " + phonebook.get(key));
         }
+        System.out.println();
         return null;
     }
 }
