@@ -21,15 +21,18 @@ public class LoanEngineByRelationshipLength implements LoanEngine {
         BigDecimal totalBalancePercentage;
         int relationshipLength = Long.valueOf ( period ).intValue ();
 
-        totalBalancePercentage = getLoanAmount ( relationshipLength );
+        totalBalancePercentage = calculateLoanPercentage ( relationshipLength );
         loanAmountApprovedAutomatically = totalCustomerBalance.multiply ( totalBalancePercentage );
 
         return loanAmountApprovedAutomatically;
     }
 
-    private BigDecimal getLoanAmount(int relationshipLength) throws MavenBankLoanException {
+
+    @Override
+    public BigDecimal calculateLoanPercentage(long relationshipLength) throws MavenBankLoanException {
         BigDecimal totalBalancePercentage;
-        switch (relationshipLength) {
+        int lengthOfRelationship = Long.valueOf ( relationshipLength ).intValue ();
+        switch (lengthOfRelationship) {
             case 0: case 1: case 2:
                 return BigDecimal.ZERO;
             case 3: case 4: case 5:

@@ -66,14 +66,14 @@ public class CustomerRepo {
         CurrentAccount johnCurrentAccount = new CurrentAccount ( 2, BigDecimal.valueOf ( 50_000_000 ) );
         john.setRelationshipStartDate ( johnCurrentAccount.getStartDate () );
         john.getAccounts ().add( johnCurrentAccount );
-         Customer jane = new Customer ();
-        jane.setBvn ( 2);
 
+        Customer jane = new Customer ();
+        jane.setBvn ( 2);
         jane.setEmail ( "Janebessie@yahoo.com" );
         jane.setFirstName ( "Jane" );
         jane.setSurname ( "Bessie" );
-         dob = LocalDate.of(2000, Month.JANUARY, 21);
-        john.setDateOfBirth ( dob );
+        dob = LocalDate.of(2000, Month.JANUARY, 21);
+        jane.setDateOfBirth ( dob );
         jane.setPhoneNumber ( "07067650211" );
         SavingsAccount janeSavingsAccount =  new SavingsAccount( 3 );
         jane.setRelationshipStartDate ( janeSavingsAccount.getStartDate () );

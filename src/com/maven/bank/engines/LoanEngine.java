@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public interface LoanEngine {
     BigDecimal calculateAmountAutoApproved(Customer customer, Account accountSeekingLoan) throws MavenBankLoanException;
-
+    BigDecimal calculateLoanPercentage(long determinant) throws MavenBankLoanException;
     default void validateLoanRequest(Customer customer, Account accountSeekingLoan) throws MavenBankLoanException {
         if (customer == null) {
             throw new MavenBankLoanException ( "No Customer Provided" );

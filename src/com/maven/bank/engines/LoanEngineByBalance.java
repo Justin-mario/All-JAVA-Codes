@@ -25,4 +25,9 @@ public class LoanEngineByBalance implements LoanEngine{
         return loanAmountApprovedAutomatically;
     }
 
+    @Override
+    public BigDecimal calculateLoanPercentage(long determinant) {
+        return BigDecimal.ZERO;
+    }
+
 }
