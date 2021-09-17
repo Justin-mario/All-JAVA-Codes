@@ -9,18 +9,21 @@ import com.maven.bank.entities.LoanRequest;
 import com.maven.bank.entities.SavingsAccount;
 import com.maven.bank.exceptions.MavenBankException;
 import com.maven.bank.exceptions.MavenBankLoanException;
-import com.maven.bank.services.*;
+import com.maven.bank.services.AccountService;
+import com.maven.bank.services.AccountServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoanEngineByBalanceTest {
+class LoanEngineByCustomerAgeTest {
+
 
     private AccountService accountService;
     private LoanEngine loanEngine;
@@ -28,7 +31,7 @@ class LoanEngineByBalanceTest {
     private Customer john;
     @BeforeEach
     void setUp() {
-        loanEngine = new LoanEngineByBalance ();
+        loanEngine = new LoanEngineByRelationshipLength ();
         accountService = new AccountServiceImpl ();
         johnLoanRequest = new LoanRequest ();
 
@@ -45,8 +48,6 @@ class LoanEngineByBalanceTest {
 
     @AfterEach
     void tearDown() {
-        BankService.tearDown ();
-        CustomerRepo.reset ();
     }
 
     @Test
@@ -60,31 +61,30 @@ class LoanEngineByBalanceTest {
     }
 
     @Test
-    void calculateAmountAutoApproved() {
+    void calculateAmountAutoApprovedForBelowEighteen(){
         try {
             Account johnCurrentAccount = accountService.findAccount ( 2 );
-            johnLoanRequest.setLoanAmount ( BigDecimal.valueOf ( 9_000_000 ) );
             johnCurrentAccount.setAccountLoanRequest ( johnLoanRequest );
+            LocalDate dob = john.getDateOfBirth ().minusYears ( 15 );
+            john.setDateOfBirth ( dob );
             BigDecimal approvedLoan = loanEngine.calculateAmountAutoApproved ( john, johnCurrentAccount );
-            assertEquals ( 10_090_000, approvedLoan.intValue () );
+            assertEquals ( BigDecimal.ZERO.intValue (), approvedLoan.intValue () );
         } catch (MavenBankException ex) {
             ex.printStackTrace ();
         }
     }
-        @Test
-        void calculateAmountAutoApprovedForCustomerWithNegativeBalance(){
-            try{
-                Account johnCurrentAccount = accountService.findAccount ( 2 );
-                johnCurrentAccount.setBalance ( BigDecimal.valueOf (  -900_000 ) );
-                johnLoanRequest.setLoanAmount ( BigDecimal.valueOf ( 9_000_000 ) );
-                johnCurrentAccount.setAccountLoanRequest ( johnLoanRequest );
-                BigDecimal approvedLoan = loanEngine.calculateAmountAutoApproved ( john,johnCurrentAccount  );
-                assertEquals (  0 , approvedLoan.intValue () );
-            }catch (MavenBankException ex){
-                ex.printStackTrace ();
-            }
+
+    @Test
+    void calculateAmountAutoApprovedForTwentyOneYearsOld(){
+        try {
+            Account johnCurrentAccount = accountService.findAccount ( 2 );
+            johnCurrentAccount.setAccountLoanRequest ( johnLoanRequest );
+            LocalDate dob = john.getDateOfBirth ().minusYears ( 9 );
+            john.setDateOfBirth ( dob );
+            BigDecimal approvedLoan = loanEngine.calculateAmountAutoApproved ( john, johnCurrentAccount );
+            assertEquals ( 1_009_000, approvedLoan.intValue () );
+        } catch (MavenBankException ex) {
+            ex.printStackTrace ();
+        }
     }
-
-
-
 }

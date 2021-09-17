@@ -13,6 +13,12 @@ public interface LoanEngine {
         if (customer == null) {
             throw new MavenBankLoanException ( "No Customer Provided" );
         }
+//        LocalDateTime loanDate = LocalDateTime.now ();
+//        LocalDateTime customerRelationshipStartDate = accountSeekingLoan.getStartDate ();
+//        long period = ChronoUnit.MONTHS.between  (customerRelationshipStartDate.toLocalDate (  ),loanDate.toLocalDate ());
+//        if(period < 0){
+//            throw new MavenBankLoanException ("Illegal argument");
+//        }
         validateLoanRequest ( accountSeekingLoan );
     }
     default void validateLoanRequest(Account accountSeekingLoan) throws MavenBankLoanException {
@@ -23,5 +29,14 @@ public interface LoanEngine {
             throw new MavenBankLoanException ( "no loan Request provided For Processing" );
         }
 
+    }
+
+    default BigDecimal getTotalCustomerBalance(Customer customer){
+        BigDecimal totalCustomerBalance = BigDecimal.ZERO;
+        if (customer.getAccounts ().size () > BigDecimal.ONE.intValue ())
+            for (Account customerAccount : customer.getAccounts ()){
+                totalCustomerBalance =  totalCustomerBalance.add ( customerAccount.getBalance () );
+            }
+        return totalCustomerBalance;
     }
 }

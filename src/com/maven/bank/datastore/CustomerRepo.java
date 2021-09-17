@@ -7,7 +7,10 @@ import com.maven.bank.entities.SavingsAccount;
 
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +34,8 @@ public class CustomerRepo {
     public static void reset() {
         Customer john = new Customer ();
         john.setBvn ( 1 );
-
+        LocalDate dob = LocalDate.of(1991, Month.MAY, 12);
+        john.setDateOfBirth ( dob );
         john.setEmail ( "Johndoe@yahoo.com" );
         john.setFirstName ( "John" );
         john.setSurname ( "Doe" );
@@ -68,6 +72,8 @@ public class CustomerRepo {
         jane.setEmail ( "Janebessie@yahoo.com" );
         jane.setFirstName ( "Jane" );
         jane.setSurname ( "Bessie" );
+         dob = LocalDate.of(2000, Month.JANUARY, 21);
+        john.setDateOfBirth ( dob );
         jane.setPhoneNumber ( "07067650211" );
         SavingsAccount janeSavingsAccount =  new SavingsAccount( 3 );
         jane.setRelationshipStartDate ( janeSavingsAccount.getStartDate () );

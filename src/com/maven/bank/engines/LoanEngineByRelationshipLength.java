@@ -9,74 +9,51 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 
-public class LoanEngineByRelationshipLength implements LoanEngine{
+public class LoanEngineByRelationshipLength implements LoanEngine {
     @Override
     public BigDecimal calculateAmountAutoApproved(Customer customer, Account accountSeekingLoan) throws MavenBankLoanException {
         validateLoanRequest ( customer, accountSeekingLoan );
         LocalDateTime customerRelationshipStartDate = accountSeekingLoan.getStartDate ();
         LocalDateTime loanDate = LocalDateTime.now ();
-        long period = ChronoUnit.MONTHS.between  (customerRelationshipStartDate.toLocalDate (  ),loanDate.toLocalDate ());
-
-
-
+        long period = ChronoUnit.MONTHS.between ( customerRelationshipStartDate.toLocalDate (), loanDate.toLocalDate () );
+        BigDecimal loanAmountApprovedAutomatically;
+        BigDecimal totalCustomerBalance = getTotalCustomerBalance ( customer );
         BigDecimal totalBalancePercentage;
-        BigDecimal totalCustomerBalance = BigDecimal.ZERO;
-        if (customer.getAccounts ().size () > BigDecimal.ONE.intValue ())
-        for (Account customerAccount : customer.getAccounts ()){
-            totalCustomerBalance =  totalCustomerBalance.add ( customerAccount.getBalance () );
-        }
-        BigDecimal loanAmountApprovedAutomatically ;
+        int relationshipLength = Long.valueOf ( period ).intValue ();
 
-        System.out.println ( period );
-        switch ((int) period) {
-            case 0:
-            case 1:
-            case 2:
-                throw new MavenBankLoanException ( "Sorry, You Have few Months More To Qualify" );
-            case 3:
-            case 4:
-            case 5:
-                totalBalancePercentage = BigDecimal.valueOf ( 0.02 );
-                break;
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-                totalBalancePercentage = BigDecimal.valueOf ( 0.04 );
-                break;
-            case 12:
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-            case 17:
-                totalBalancePercentage = BigDecimal.valueOf ( 0.06 );
-                break;
-            case 18:
-            case 19:
-            case 20:
-            case 21:
-            case 22:
-            case 23:
-                totalBalancePercentage = BigDecimal.valueOf ( 0.08 );
-                break;
-            default:
-                if (period > 0)
-                totalBalancePercentage = BigDecimal.valueOf ( 0.10 );
-                else
-                    throw new MavenBankLoanException ("Month cannot be negative");
-
-        }
+        totalBalancePercentage = getLoanAmount ( relationshipLength );
         loanAmountApprovedAutomatically = totalCustomerBalance.multiply ( totalBalancePercentage );
-
-
-
-
-
-
 
         return loanAmountApprovedAutomatically;
     }
+
+    private BigDecimal getLoanAmount(int relationshipLength) throws MavenBankLoanException {
+        BigDecimal totalBalancePercentage;
+        switch (relationshipLength) {
+            case 0: case 1: case 2:
+                return BigDecimal.ZERO;
+            case 3: case 4: case 5:
+                totalBalancePercentage = BigDecimal.valueOf ( 0.02 );
+                break;
+            case 6: case 7: case 8: case 9: case 10: case 11:
+                totalBalancePercentage = BigDecimal.valueOf ( 0.04 );
+                break;
+            case 12: case 13: case 14: case 15: case 16: case 17:
+                totalBalancePercentage = BigDecimal.valueOf ( 0.06 );
+                break;
+            case 18: case 19: case 20: case 21: case 22: case 23:
+                totalBalancePercentage = BigDecimal.valueOf ( 0.08 );
+                break;
+            default:
+                if (relationshipLength > 0)
+                    totalBalancePercentage = BigDecimal.valueOf ( 0.10 );
+                else
+                    throw new MavenBankLoanException ( "Month cannot be negative" );
+        }
+        return totalBalancePercentage;
+    }
+
+
+
+
 }

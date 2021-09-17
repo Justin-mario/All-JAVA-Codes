@@ -1,5 +1,6 @@
 package com.maven.bank.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Customer {
     private String password;
     private List<Account> accounts = new ArrayList<> ();
     private LocalDateTime relationshipStartDate;
+    private LocalDate dateOfBirth;
 
 
     public void setBvn(long bvn) {
@@ -65,6 +67,14 @@ public class Customer {
 
     public List<Account> getAccounts() {
         return accounts;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public LocalDateTime getRelationshipStartDate() {
