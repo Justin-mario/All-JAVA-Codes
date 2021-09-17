@@ -1,10 +1,10 @@
 package com.maven.bank.services;
 
-import com.maven.bank.datastore.LoanRequestStatus;
+import enums.LoanRequestStatus;
 import com.maven.bank.entities.Account;
 import com.maven.bank.entities.BankTransaction;
 import com.maven.bank.entities.Customer;
-import com.maven.bank.datastore.AccountType;
+import enums.AccountType;
 import com.maven.bank.exceptions.MavenBankException;
 import com.maven.bank.exceptions.MavenBankInsufficientFundException;
 import com.maven.bank.exceptions.MavenBankTransactionException;

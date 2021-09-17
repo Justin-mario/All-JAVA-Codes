@@ -1,6 +1,5 @@
 package com.maven.bank.engines;
 
-import com.maven.bank.datastore.LoanRequestStatus;
 import com.maven.bank.entities.Account;
 import com.maven.bank.entities.Customer;
 import com.maven.bank.exceptions.MavenBankLoanException;

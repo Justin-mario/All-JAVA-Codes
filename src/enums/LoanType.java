@@ -1,4 +1,4 @@
-package com.maven.bank.datastore;
+package enums;
 
 public enum LoanType {
     CAR, PAYDAY, SME, HOME, CREDIT, OVERDRAFT

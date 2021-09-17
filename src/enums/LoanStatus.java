@@ -1,4 +1,4 @@
-package com.maven.bank.datastore;
+package enums;
 
 public enum LoanStatus {
     ACTIVE, PENDING, NON_PERFORMING, CLOSED;

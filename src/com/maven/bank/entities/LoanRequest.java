@@ -1,7 +1,7 @@
 package com.maven.bank.entities;
 
-import com.maven.bank.datastore.LoanRequestStatus;
-import com.maven.bank.datastore.LoanType;
+import enums.LoanRequestStatus;
+import enums.LoanType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
